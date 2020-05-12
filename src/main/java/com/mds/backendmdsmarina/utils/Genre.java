@@ -4,7 +4,8 @@ public enum Genre {
 
     DRAGOSTE("De dragoste"),
     BAUTURA("De bautura"),
-    SMECHERIE("De smecherie");
+    SMECHERIE("De smecherie"),
+    TRISTETE("La suparare");
 
     private String value;
 

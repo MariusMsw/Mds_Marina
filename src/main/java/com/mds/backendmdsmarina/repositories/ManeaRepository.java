@@ -11,10 +11,12 @@ import java.util.Optional;
 
 public interface ManeaRepository extends JpaRepository<Manea, Integer> {
 
-    List<Manea> findAllByArtist(String artistName);
+    List<Manea> findByArtistContainingIgnoreCase(String artistName);
 
     List<Manea> findAllByGenre(Genre genre);
 
     Optional<Manea> findByTitle(String title);
+
+    List<Manea> findByTitleContainingIgnoreCase(String title);
 
 }

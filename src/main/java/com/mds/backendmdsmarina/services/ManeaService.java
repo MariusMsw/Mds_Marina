@@ -33,7 +33,7 @@ public class ManeaService {
     public ResponseEntity<Object> getAllManeleByArtist(String artist) {
         Map<String, Object> logMap = new HashMap<>();
         try {
-            List<Manea> manele = this.maneaRepository.findAllByArtist(artist);
+            List<Manea> manele = this.maneaRepository.findByArtistContainingIgnoreCase(artist);
             return new ResponseEntity<>(manele, HttpStatus.OK);
         } catch (Exception e) {
             logMap.put("message", "An error occurred. Try again later!");
@@ -112,4 +112,14 @@ public class ManeaService {
 
     }
 
+    public ResponseEntity<Object> getManeleByTitle(String title) {
+        Map<String, String> logMap = new HashMap<>();
+        try {
+            List<Manea> existingManea = this.maneaRepository.findByTitleContainingIgnoreCase(title);
+            return new ResponseEntity<>(existingManea, HttpStatus.OK);
+        } catch (Exception e) {
+            logMap.put("message", "An error occurred. Try again later!");
+            return new ResponseEntity<>(logMap, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

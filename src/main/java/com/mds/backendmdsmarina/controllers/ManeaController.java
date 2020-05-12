@@ -25,6 +25,11 @@ public class ManeaController {
         return this.maneaService.getAllManeleByArtist(artist);
     }
 
+    @GetMapping("/title")
+    public ResponseEntity<Object> getManeleByTitle(@RequestParam String title) {
+        return this.maneaService.getManeleByTitle(title);
+    }
+
     @GetMapping("/genre")
     public ResponseEntity<Object> getAllManeleByGenre(@RequestParam Genre genre) {
         return this.maneaService.getAllManeleByGenre(genre);
