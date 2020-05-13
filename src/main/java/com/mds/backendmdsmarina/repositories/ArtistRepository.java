@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ArtistRepository extends JpaRepository<Artist, Integer> {
-    Optional<Artist> findByName(String name);
+    Optional<Artist> findByNameContaining(String name);
 }

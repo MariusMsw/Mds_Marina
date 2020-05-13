@@ -33,7 +33,7 @@ public class ArtistService {
     public ResponseEntity<Object> addArtist(Artist artist) {
         Map<String, String> logMap = new HashMap<>();
         try {
-            Optional<Artist> optionalArtist = this.artistRepository.findByName(artist.getName());
+            Optional<Artist> optionalArtist = this.artistRepository.findByNameContaining(artist.getName());
 
             if (optionalArtist.isPresent()) {
                 logMap.put("message", "Artists already exists!");
@@ -52,7 +52,7 @@ public class ArtistService {
     public ResponseEntity<Object> updateAlbum(Artist artist) {
         Map<String, Object> logMap = new HashMap<>();
         try {
-            Optional<Artist> optionalArtist = this.artistRepository.findByName(artist.getName());
+            Optional<Artist> optionalArtist = this.artistRepository.findByNameContaining(artist.getName());
 
             if (optionalArtist.isPresent()) {
                 Artist existingArtist = optionalArtist.get();
@@ -74,7 +74,7 @@ public class ArtistService {
     public ResponseEntity<Object> deleteArtist(String name) {
         Map<String, String> logMap = new HashMap<>();
         try {
-            Optional<Artist> optionalArtist = this.artistRepository.findByName(name);
+            Optional<Artist> optionalArtist = this.artistRepository.findByNameContaining(name);
             if (optionalArtist.isPresent()) {
                 this.artistRepository.delete(optionalArtist.get());
                 return new ResponseEntity<>(optionalArtist.get(), HttpStatus.OK);
@@ -86,5 +86,21 @@ public class ArtistService {
             return new ResponseEntity<>(logMap, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    public ResponseEntity<Object> getArtistByName(String name) {
+        Map<String, String> logMap = new HashMap<>();
+
+        try {
+            Optional<Artist> optionalArtist = this.artistRepository.findByNameContaining(name);
+            if (optionalArtist.isPresent()) {
+                return new ResponseEntity<>(optionalArtist.get(), HttpStatus.OK);
+            }
+            logMap.put("message", "Artist not found");
+            return new ResponseEntity<>(logMap, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            logMap.put("message", "An error occurred. Try again later!");
+            return new ResponseEntity<>(logMap, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -33,5 +33,10 @@ public class ArtistController {
         return this.artistService.deleteArtist(name);
     }
 
+    @GetMapping("/one")
+    public ResponseEntity<Object> getArtistByName(@RequestParam String name) {
+        return this.artistService.getArtistByName(name);
+    }
+
 
 }
