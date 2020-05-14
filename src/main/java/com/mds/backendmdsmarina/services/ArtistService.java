@@ -33,7 +33,7 @@ public class ArtistService {
     public ResponseEntity<Object> addArtist(Artist artist) {
         Map<String, String> logMap = new HashMap<>();
         try {
-            Optional<Artist> optionalArtist = this.artistRepository.findByNameContaining(artist.getName());
+            Optional<Artist> optionalArtist = this.artistRepository.findFirstByNameContainingIgnoreCase(artist.getName());
 
             if (optionalArtist.isPresent()) {
                 logMap.put("message", "Artists already exists!");
@@ -52,7 +52,7 @@ public class ArtistService {
     public ResponseEntity<Object> updateAlbum(Artist artist) {
         Map<String, Object> logMap = new HashMap<>();
         try {
-            Optional<Artist> optionalArtist = this.artistRepository.findByNameContaining(artist.getName());
+            Optional<Artist> optionalArtist = this.artistRepository.findFirstByNameContainingIgnoreCase(artist.getName());
 
             if (optionalArtist.isPresent()) {
                 Artist existingArtist = optionalArtist.get();
@@ -74,7 +74,7 @@ public class ArtistService {
     public ResponseEntity<Object> deleteArtist(String name) {
         Map<String, String> logMap = new HashMap<>();
         try {
-            Optional<Artist> optionalArtist = this.artistRepository.findByNameContaining(name);
+            Optional<Artist> optionalArtist = this.artistRepository.findFirstByNameContainingIgnoreCase(name);
             if (optionalArtist.isPresent()) {
                 this.artistRepository.delete(optionalArtist.get());
                 return new ResponseEntity<>(optionalArtist.get(), HttpStatus.OK);
@@ -92,7 +92,7 @@ public class ArtistService {
         Map<String, String> logMap = new HashMap<>();
 
         try {
-            Optional<Artist> optionalArtist = this.artistRepository.findByNameContaining(name);
+            Optional<Artist> optionalArtist = this.artistRepository.findFirstByNameContainingIgnoreCase(name);
             if (optionalArtist.isPresent()) {
                 return new ResponseEntity<>(optionalArtist.get(), HttpStatus.OK);
             }
